@@ -22,7 +22,7 @@ Page({
     textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
     text: 'loading...',
     color: 0xffffff,
-    text_size: px(36),
+    text_size: px(48),
     x: px(0),
     y: px(0),
     w: px(DEVICE_WIDTH),
@@ -48,6 +48,12 @@ Page({
       textWidget.setProperty(hmUI.prop.text, {
         text: textWidgetText + "\n" + String(timeRemaining) + "s",
       })
+      if(timeRemaining < 10)
+        textWidget.setProperty(hmUI.prop.text, {color: 0xFF0000,})
+      else if(timeRemaining < 20)
+        textWidget.setProperty(hmUI.prop.text, {color: 0xFFFF00,})
+      else
+        textWidget.setProperty(hmUI.prop.text, {color: 0x00FF00,})
       timeRemaining -= 1
       console.log("refreshed TOTP")
     }, 1000)

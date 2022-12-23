@@ -104,11 +104,10 @@ Page({
       item_config: [
         {
           type_id: 0,
-          item_bg_color: 0x000000,
-          item_bg_radius: 0,
+          item_bg_color: 0x101010,
+          item_bg_radius: 40,
           text_view: [
-            { x: 0, y: 0, w: DEVICE_WIDTH, h: 80, key: 'account', color: 0xffffff, text_size: 36 },
-            { x: 0, y: 0, w: DEVICE_WIDTH, h: 80, key: 'issuer', color: 0xffffff, text_size: 36 },
+            { x: 0, y: 20, w: DEVICE_WIDTH, h: 40, key: 'account', color: 0xffffff, text_size: px(48) },
           ],
           text_view_count: 1,
           image_view_count: 0,
