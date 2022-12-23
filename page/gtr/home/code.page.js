@@ -41,8 +41,9 @@ Page({
         console.log("calc. TOTP")
         var authObj = new auth(acc.account, acc.secret, acc.issuer, parseInt(acc.period), acc.algorithm)
         let {otp, time} = authObj.getOtp()
+        otp = otp.substring(otp.length - parseInt(acc.digits));
         timeRemaining = time
-        textWidgetText = otp.slice(0, parseInt(acc.digits))
+        textWidgetText = otp
       }
       textWidget.setProperty(hmUI.prop.text, {
         text: textWidgetText + "\n" + String(timeRemaining) + "s",

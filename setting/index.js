@@ -53,11 +53,14 @@ AppSettingsPage({
 			if(!('algorithm' in obj)){
 				obj['algorithm'] = 'SHA-1'
 			}
-			//TODO: MAP more Algorithms? SHA1 -> SHA-1, sha256 -> SHA-256
+
+			if (obj['algorithm'] == "sha512" || obj['algorithm'] == "SHA512")
+				obj['algorithm'] = "SHA-512"
 			if(obj['algorithm'] == "sha256" || obj['algorithm'] == "SHA256")
 				obj['algorithm'] = "SHA-256"
 			if(obj['algorithm'] == "sha1" || obj['algorithm'] == "SHA1")
 				obj['algorithm'] = "SHA-1"
+
 
 
 			if(!('digits' in obj)){

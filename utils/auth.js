@@ -15,23 +15,35 @@ export default function (account, secret, issuer, period, sha) {
         var bits = "";
         var hex = "";
 
-        //strip padding? better method?
-        base32 = base32.replaceAll('=', '')
+        for(let i = 0; i < base32.length; i+=8){
 
-        for (var i = 0; i < base32.length; i++) {
-            var val = base32chars.indexOf(base32.charAt(i).toUpperCase());
-            bits += leftpad(val.toString(2), 5, '0');
-        }
+            //PADDING
+            let pad = (base32.slice(i,i+8).match(/=/g) || []).length
+            let bytesToUse
+            if(pad == 6)
+                bytesToUse = 1
+            else if (pad == 4)
+                bytesToUse = 2
+            else if (pad == 3)
+                bytesToUse = 3
+            else if (pad == 1)
+                bytesToUse = 4
+            else if(pad == 0)
+                bytesToUse = 5
 
-        for (var i = 0; i + 4 <= bits.length; i += 4) {
-            var chunk = bits.substr(i, 4);
-            hex = hex + parseInt(chunk, 2).toString(16);
+            bits = "";
+
+            for (let j = i; j < i + 8; j++) {
+                let val = base32chars.indexOf(base32.charAt(j).toUpperCase());
+                bits += leftpad(val.toString(2), 5, '0')
+            }
+            for (let j = 0; j < bytesToUse*8; j += 4) {
+                let chunk = bits.substring(j, j + 4);
+                let hexval = "" + parseInt(chunk, 2).toString(16);
+                hex += hexval
+            }
         }
-        //TODO do this for other length also? This is needed when the last char is a Q = 10000 which yields one hex char too much
-        if(hex.length == 65 && hex[64] == '0')
-            hex = hex.slice(0,-1)
         return hex;
-
     }
 
 
@@ -60,8 +72,7 @@ export default function (account, secret, issuer, period, sha) {
             var offset = hex2dec(hmac.substring(hmac.length - 1));
         }
 
-        var otp = (hex2dec(hmac.substr(offset * 2, 8)) & hex2dec('7fffffff')) + '';
-        otp = (otp).substr(otp.length - 6, 6);
+        var otp = (hex2dec(hmac.substring(offset * 2, offset*2 + 8)) & hex2dec('7fffffff')) + '';
         time = 1 - (epoch / period) + Math.floor(epoch / period)
         time = Math.round(time * period)
         return {otp: String(otp), time: time};
