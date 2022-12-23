@@ -2,10 +2,11 @@
 
 - added compatibility for SHA256 (algorithm=SHA256) (other are easy to also implement) 
 - added compatibility for different periods of time (period=30)
-- added compatibility for more or less digits than 6 (digits=6&)
+- added compatibility for more or less digits than 6 (digits=6)
 - changed to Zepp OS 2, currently only for GTR 4 as i don't have any other watch 
 - Autoupdate
 - New storage API from 2.0
+- Dead simple UI, should work on all devices (does not look good...)
 
 # Old Readme
 # Authenticator
