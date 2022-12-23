@@ -1,31 +1,26 @@
-import { MessageBuilder } from '../shared/message'
+import { MessageBuilder } from '../shared/message-side'
 
 const messageBuilder = new MessageBuilder()
 
-function getAccountList() {
-	return settings.settingsStorage.getItem('accountList')
-		? JSON.parse(settings.settingsStorage.getItem('accountList'))
-		: []
-}
 
 AppSideService({
-	onInit() {
-		messageBuilder.listen(() => {})
-		settings.settingsStorage.addListener(
-			'change',
-			({ key, newValue, oldValue }) => {
-				messageBuilder.call(getAccountList())
-			}
-		)
-		messageBuilder.on('request', (ctx) => {
-			const payload = messageBuilder.buf2Json(ctx.request.payload)
-			if (payload.method === 'GET_ACCOUNT_LIST') {
-				ctx.response({ data: { result: getAccountList() } })
-			}
-		})
-	},
+  onInit() {
+    messageBuilder.listen(() => {})
+    
+    messageBuilder.on('request', (ctx) => {
+      const payload = messageBuilder.buf2Json(ctx.request.payload)
+      let accList = settings.settingsStorage.getItem('accountList')
 
-	onRun() {},
+      if (payload.method === 'GET_ACCOUNT_LIST') {
 
-	onDestroy() {},
+        ctx.response({
+          data: { result: accList}
+        })
+      }
+    })
+  },
+
+
+  onRun() {},
+  onDestroy() {},
 })

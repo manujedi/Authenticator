@@ -1,12 +1,16 @@
-export function json2Buf(json) {
+export function json2buf(json) {
   return str2buf(json2str(json))
+}
+
+export function json2bin(json) {
+  return str2bin(json2str(json))
 }
 
 export function len(binOrBuf) {
   return binOrBuf.byteLength
 }
 
-export function buf2Json(buf) {
+export function buf2json(buf) {
   return str2json(buf2str(buf))
 }
 
@@ -31,7 +35,7 @@ export function bin2buf(bin) {
 }
 
 export function buf2bin(buf) {
-  return buf.buffer
+  return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)
 }
 
 export function buf2hex(buf) {
@@ -43,7 +47,7 @@ export function bin2hex(bin) {
 }
 
 export function bin2json(bin) {
-  return buf2Json(bin2buf(bin))
+  return buf2json(bin2buf(bin))
 }
 
 export function bin2str(bin) {

@@ -4,23 +4,66 @@ import { gettext } from 'i18n'
     account
     secret
     issuer
+	period
+	algorithm
+	digits
     uri
 }
 */
+
 AppSettingsPage({
 	state: {
 		accountList: [],
 		props: {},
 	},
 	uriToObj(uri) {
-		const regx = /otpauth:\/\/totp\/(\S+)\?(\w+?=\w+)(?:&(\w+?=\w+))*/
-		const matched = uri.match(regx)
-		if (matched) {
-			var obj = { uri: matched[0], account: matched[1] }
-			for (let i = 2; i < matched.length; ++i) {
-				let tmp = matched[i].split('=')
-				obj[tmp[0]] = tmp[1]
+		if(uri.startsWith('otpauth://totp/')){
+			var obj = {uri : uri}
+			uri = uri.replace('otpauth://totp/','')
+			let [name,params] = uri.split('?')
+			params = params.split('&')
+	
+			if(name.length > 0){
+				obj['account'] = name
+			}else{
+				return null
 			}
+				
+			params.forEach(element => {
+				let key = element.slice(0,element.indexOf('='))
+				let val = element.slice(element.indexOf('=')+1)
+				console.log(key, " is ", val)
+				obj[key] = val
+			});
+
+
+			//required data
+			if(!('secret' in obj)){
+				return null
+			}
+
+			if(!('issuer' in obj)){
+				return null
+			}
+	
+			//optional
+			if(!('period' in obj)){
+				obj['period'] = String(30)
+			}
+			if(!('algorithm' in obj)){
+				obj['algorithm'] = 'SHA-1'
+			}
+			//TODO: MAP more Algorithms? SHA1 -> SHA-1, sha256 -> SHA-256
+			if(obj['algorithm'] == "sha256" || obj['algorithm'] == "SHA256")
+				obj['algorithm'] = "SHA-256"
+			if(obj['algorithm'] == "sha1" || obj['algorithm'] == "SHA1")
+				obj['algorithm'] = "SHA-1"
+
+
+			if(!('digits' in obj)){
+				obj['digits'] = String(6)
+			}
+	
 			return obj
 		}
 		return null

@@ -1,17 +1,11 @@
-import { EventBus } from '@zos/utils'
-import { log as Logger } from '@zos/utils'
+import { EventBus } from './event'
 import { Deferred, timeout } from './defer'
 import { json2buf, buf2json, bin2hex, str2buf, buf2str } from './data'
 
 let logger
 
 function initLogger() {
-  if (typeof __ZEPPOS__ !== 'undefined') {
-    logger = Logger.getLogger('device-message')
-    // logger.level = logger.levels.warn
-  } else {
-    logger = Logger.getLogger('side-message')
-  }
+  logger = Logger.getLogger('side-message')
 }
 
 const DEBUG = true
@@ -442,7 +436,7 @@ export class MessageBuilder extends EventBus {
   sendBinBySide(buf, debug = DEBUG) {
     // side 发送消息
     debug && logger.warn('[RAW] [S] send size=%d bin=%s', buf.byteLength, bin2hex(buf.buffer))
-    messaging.peerSocket.send(buf.buffer)
+    messaging && messaging.peerSocket.send(buf.buffer)
   }
 
   // 通用获取逻辑
