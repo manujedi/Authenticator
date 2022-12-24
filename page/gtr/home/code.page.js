@@ -63,6 +63,7 @@ Page({
     console.log('ready')
   },
 
+
   onShow() {console.log('show')},
 
   onHide() {console.log('hide')},

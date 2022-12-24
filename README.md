@@ -1,12 +1,17 @@
 # Fork of ZoLArk173 Authenticator Zepp OS app
 
-- added compatibility for SHA256 (algorithm=SHA256) (other are easy to also implement) 
-- added compatibility for different periods of time (period=30)
-- added compatibility for more or less digits than 6 (digits=6)
-- changed to Zepp OS 2, currently only for GTR 4 as i don't have any other watch 
-- Autoupdate
+- added advanced options:
+  - `otpauth://totp/{ACCOUNT_NAME}?secret={SECRET}&issuer={ISSUER}&algorithm={ALGO}&digits={DIGITS}&period={PERIOD}`
+    - `{ALGO}`: SHA1 (default if not specified), SHA256, SHA512
+    - `{DIGITS}`: how many digits the code has (more than 10 are useless as only 31bit are used for the code)
+    - `{PERIOD}`: in seconds, (30 default if not specified)
+- fixed base32 decoder
+- fixed label (https://github.com/google/google-authenticator/wiki/Key-Uri-Format#label)
+- changed to Zepp OS 2
+- auto update expired codes
 - New storage API from 2.0
-- Dead simple UI, should work on all devices (does not look good...)
+- Dead simple UI, works without modifications on GTR and GTS (and looks good on my opinion)
+  - should work on GTR3, GTR3-Pro, GTS3 if the ever get the Zepp OS 2 update
 
 # Old Readme
 # Authenticator

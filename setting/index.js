@@ -22,8 +22,13 @@ AppSettingsPage({
 			uri = uri.replace('otpauth://totp/','')
 			let [name,params] = uri.split('?')
 			params = params.split('&')
-	
+
 			if(name.length > 0){
+				//https://github.com/google/google-authenticator/wiki/Key-Uri-Format#label
+				//name = decodeURI(name) not available on Zepp?
+				//simple uri decode TODO: do better
+				name = name.replaceAll('%3A',':')
+				name = name.replaceAll('%20',' ')
 				obj['account'] = name
 			}else{
 				return null
@@ -36,24 +41,26 @@ AppSettingsPage({
 				obj[key] = val
 			});
 
-
 			//required data
 			if(!('secret' in obj)){
 				return null
 			}
 
-			if(!('issuer' in obj)){
-				return null
-			}
-	
 			//optional
+			if(!('issuer' in obj)){
+				obj['issuer'] = 'NO ISSUER'
+			}
 			if(!('period' in obj)){
 				obj['period'] = String(30)
 			}
 			if(!('algorithm' in obj)){
 				obj['algorithm'] = 'SHA-1'
 			}
+			if(!('digits' in obj)){
+				obj['digits'] = String(6)
+			}
 
+			//Fix different Algo names
 			if (obj['algorithm'] == "sha512" || obj['algorithm'] == "SHA512")
 				obj['algorithm'] = "SHA-512"
 			if(obj['algorithm'] == "sha256" || obj['algorithm'] == "SHA256")
@@ -62,11 +69,6 @@ AppSettingsPage({
 				obj['algorithm'] = "SHA-1"
 
 
-
-			if(!('digits' in obj)){
-				obj['digits'] = String(6)
-			}
-	
 			return obj
 		}
 		return null

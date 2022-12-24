@@ -80,7 +80,11 @@ Page({
 
     if(otpList.length == 0){
       //add dummy
-      otpList.push({account:"Add from Settings\nand restart App"})
+      otpList.push({account:"Add an Account"})
+      otpList.push({account:"in the"})
+      otpList.push({account:"Zepp App"})
+      otpList.push({account:"and restart the"})
+      otpList.push({account:"App on the Watch"})
     }
 
     function showCode(item, index, data_key) {
@@ -90,7 +94,6 @@ Page({
         params: JSON.stringify(otpList[index]),
         },)
     }
-
 
     scrollList = hmUI.createWidget(hmUI.widget.SCROLL_LIST, {
       x: 0,
@@ -107,7 +110,7 @@ Page({
           item_bg_color: 0x101010,
           item_bg_radius: 40,
           text_view: [
-            { x: 0, y: 20, w: DEVICE_WIDTH, h: 40, key: 'account', color: 0xffffff, text_size: px(48) },
+            { x: 0, y: 0, w: DEVICE_WIDTH, h: 80, key: 'account', color: 0xffffff, text_size: px(48)},
           ],
           text_view_count: 1,
           image_view_count: 0,

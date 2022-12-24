@@ -10,7 +10,7 @@
     },
     "icon": "icon.png",
     "vender": "manujedi",
-    "description": "TOTP Authenticator"
+    "description": "A TOTP authenticator which shows the code on the watch. Uses the uri format otpauth://..."
   },
   "permissions": [
     "data:os.device.info",
@@ -58,6 +58,142 @@
         }
       ],
       "designWidth": 466
+    },
+    "gts": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/gtr/home/index.page",
+            "page/gtr/home/code.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Authenticator",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "dark"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "designWidth": 390,
+      "platforms": [
+        {
+          "name": "gts4",
+          "deviceSource": 7995648
+        },
+        {
+          "name": "gts4-w",
+          "deviceSource": 7995649
+        }
+      ]
+    },
+    "gtr-3-pro": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/gtr/home/index.page",
+            "page/gtr/home/code.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Authenticator",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "dark"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr3pro",
+          "deviceSource": 229
+        },
+        {
+          "name": "gtr3pro",
+          "deviceSource": 230
+        }
+      ],
+      "designWidth": 480
+    },
+    "gtr-3": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/gtr/home/index.page",
+            "page/gtr/home/code.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Authenticator",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "dark"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr3",
+          "deviceSource": 226
+        },
+        {
+          "name": "gtr3",
+          "deviceSource": 227
+        }
+      ],
+      "designWidth": 480
+    },
+    "gts-3": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/gtr/home/index.page",
+            "page/gtr/home/code.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Authenticator",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "dark"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gts3",
+          "deviceSource": 224
+        },
+        {
+          "name": "gts3",
+          "deviceSource": 225
+        }
+      ],
+      "designWidth": 390
     }
   },
   "i18n": {

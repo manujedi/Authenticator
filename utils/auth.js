@@ -55,7 +55,6 @@ export default function (account, secret, issuer, period, sha) {
     }
 
 
-
     this.getOtp = function () {
 
         var key = base32tohex(secret);

@@ -6,7 +6,7 @@ const messageBuilder = new MessageBuilder()
 AppSideService({
   onInit() {
     messageBuilder.listen(() => {})
-    
+
     messageBuilder.on('request', (ctx) => {
       const payload = messageBuilder.buf2Json(ctx.request.payload)
       let accList = settings.settingsStorage.getItem('accountList')
@@ -19,7 +19,6 @@ AppSideService({
       }
     })
   },
-
 
   onRun() {},
   onDestroy() {},
