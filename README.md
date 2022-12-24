@@ -10,7 +10,7 @@
 - changed to Zepp OS 2
 - auto update expired codes
 - New storage API from 2.0
-- Dead simple UI, works without modifications on GTR and GTS (and looks good on my opinion)
+- Dead simple UI, works without modifications on GTR4 and GTS4 (and looks good on my opinion)
   - should work on GTR3, GTR3-Pro, GTS3 if the ever get the Zepp OS 2 update
 
 # Old Readme
