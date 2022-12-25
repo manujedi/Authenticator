@@ -29,6 +29,7 @@ AppSettingsPage({
                 //simple uri decode TODO: do better
                 name = name.replaceAll('%3A', ':')
                 name = name.replaceAll('%20', ' ')
+                name = name.replaceAll('%40', '@')
                 obj['account'] = name
             } else {
                 return null
@@ -52,6 +53,7 @@ AppSettingsPage({
             } else {
                 obj['issuer'] = obj['issuer'].replaceAll('%3A', ':')
                 obj['issuer'] = obj['issuer'].replaceAll('%20', ' ')
+                obj['issuer'] = obj['issuer'].replaceAll('%40', '@')
             }
             if (!('period' in obj)) {
                 obj['period'] = String(30)

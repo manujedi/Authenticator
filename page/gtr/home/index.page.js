@@ -18,7 +18,8 @@ Page({
 
     onMessage() {
         messageBuilder.on('call', ({payload: buf}) => {
-            console.log('am i actually called?')
+            console.log(buf)
+            this.getAccounts()
         })
     },
 
