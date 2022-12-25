@@ -15,12 +15,12 @@ export default function (account, secret, issuer, period, sha) {
         var bits = "";
         var hex = "";
 
-        for(let i = 0; i < base32.length; i+=8){
+        for (let i = 0; i < base32.length; i += 8) {
 
             //PADDING
-            let pad = (base32.slice(i,i+8).match(/=/g) || []).length
+            let pad = (base32.slice(i, i + 8).match(/=/g) || []).length
             let bytesToUse
-            if(pad == 6)
+            if (pad == 6)
                 bytesToUse = 1
             else if (pad == 4)
                 bytesToUse = 2
@@ -28,7 +28,7 @@ export default function (account, secret, issuer, period, sha) {
                 bytesToUse = 3
             else if (pad == 1)
                 bytesToUse = 4
-            else if(pad == 0)
+            else if (pad == 0)
                 bytesToUse = 5
 
             bits = "";
@@ -37,7 +37,7 @@ export default function (account, secret, issuer, period, sha) {
                 let val = base32chars.indexOf(base32.charAt(j).toUpperCase());
                 bits += leftpad(val.toString(2), 5, '0')
             }
-            for (let j = 0; j < bytesToUse*8; j += 4) {
+            for (let j = 0; j < bytesToUse * 8; j += 4) {
                 let chunk = bits.substring(j, j + 4);
                 let hexval = "" + parseInt(chunk, 2).toString(16);
                 hex += hexval
@@ -71,7 +71,7 @@ export default function (account, secret, issuer, period, sha) {
             var offset = hex2dec(hmac.substring(hmac.length - 1));
         }
 
-        var otp = (hex2dec(hmac.substring(offset * 2, offset*2 + 8)) & hex2dec('7fffffff')) + '';
+        var otp = (hex2dec(hmac.substring(offset * 2, offset * 2 + 8)) & hex2dec('7fffffff')) + '';
         time = 1 - (epoch / period) + Math.floor(epoch / period)
         time = Math.round(time * period)
         return {otp: String(otp), time: time};

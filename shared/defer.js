@@ -1,35 +1,35 @@
 export function Deferred() {
-  const defer = {}
+    const defer = {}
 
-  defer.promise = new Promise(function (resolve, reject) {
-    defer.resolve = resolve
-    defer.reject = reject
-  })
+    defer.promise = new Promise(function (resolve, reject) {
+        defer.resolve = resolve
+        defer.reject = reject
+    })
 
-  return defer
+    return defer
 }
 
 export function delay(ms) {
-  const defer = Deferred()
+    const defer = Deferred()
 
-  setTimeout(defer.resolve, ms)
+    setTimeout(defer.resolve, ms)
 
-  return defer.promise
+    return defer.promise
 }
 
 export function timeout(ms, cb) {
-  const defer = Deferred()
-  ms = ms || 1000
+    const defer = Deferred()
+    ms = ms || 1000
 
-  const wait = setTimeout(() => {
-    clearTimeout(wait)
+    const wait = setTimeout(() => {
+        clearTimeout(wait)
 
-    if (cb) {
-      cb && cb(defer.resolve, defer.reject)
-    } else {
-      defer.reject('Timed out in ' + ms + 'ms.')
-    }
-  }, ms)
+        if (cb) {
+            cb && cb(defer.resolve, defer.reject)
+        } else {
+            defer.reject('Timed out in ' + ms + 'ms.')
+        }
+    }, ms)
 
-  return defer.promise
+    return defer.promise
 }
