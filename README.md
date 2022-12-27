@@ -1,5 +1,7 @@
 # Fork of ZoLArk173 Authenticator Zepp OS app
 
+Big thanks to [ZoLArk173](https://github.com/ZoLArk173) and [Alpaca131](https://github.com/Alpaca131) for the idea and original code
+
 - added advanced options:
   - `otpauth://totp/{ACCOUNT_NAME}?secret={SECRET}&issuer={ISSUER}&algorithm={ALGO}&digits={DIGITS}&period={PERIOD}`
     - `{ALGO}`: SHA1 (default if not specified), SHA256, SHA512
