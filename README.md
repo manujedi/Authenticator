@@ -13,7 +13,18 @@ Big thanks to [ZoLArk173](https://github.com/ZoLArk173) and [Alpaca131](https://
 - auto update expired codes
 - New storage API from 2.0
 - Dead simple UI, works without modifications on GTR4 and GTS4 (and looks good on my opinion)
-  - should work on GTR3, GTR3-Pro, GTS3 if the ever get the Zepp OS 2 update
+  - should work on GTR3, GTR3-Pro, GTS3 if they ever get the Zepp OS 2 update
+
+# Screenshots
+## App settings
+![App Settings](screenshots/phone_settings.jpg)
+## Watch App on GTR4
+![WatchApp](screenshots/GTR4_start.jpg)
+![WatchApp](screenshots/GTR4_accounts.jpg)
+![WatchApp](screenshots/GTR4_code.jpg)
+![WatchApp](screenshots/GTR4_code2.jpg)
+## Watch App on GTS4
+![WatchApp](screenshots/GTS4_screenshot.jpg)
 
 # Old Readme
 # Authenticator
