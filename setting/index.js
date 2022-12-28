@@ -17,64 +17,70 @@ AppSettingsPage({
         props: {},
     },
     uriToObj(uri) {
-        if (uri.startsWith('otpauth://totp/')) {
-            let obj = {uri: uri}
-            uri = uri.replace('otpauth://totp/', '')
-            let [name, params] = uri.split('?')
-            params = params.split('&')
+        try {
+            if (uri.startsWith('otpauth://totp/')) {
+                let obj = {uri: uri}
+                uri = uri.replace('otpauth://totp/', '')
+                let [name, params] = uri.split('?')
+                params = params.split('&')
 
-            if (name.length > 0) {
-                //https://github.com/google/google-authenticator/wiki/Key-Uri-Format#label
-                //name = decodeURI(name) not available on Zepp?
-                //simple uri decode TODO: do better
-                name = name.replaceAll('%3A', ':')
-                name = name.replaceAll('%20', ' ')
-                name = name.replaceAll('%40', '@')
-                obj['account'] = name
-            } else {
-                return null
+                if (name.length > 0) {
+                    //https://github.com/google/google-authenticator/wiki/Key-Uri-Format#label
+                    //name = decodeURI(name) not available on Zepp?
+                    //simple uri decode TODO: do better
+                    name = name.replaceAll('%3A', ':')
+                    name = name.replaceAll('%20', ' ')
+                    name = name.replaceAll('%40', '@')
+                    obj['account'] = name
+                } else {
+                    throw "no label"
+                }
+
+                params.forEach(element => {
+                    let key = element.slice(0, element.indexOf('='))
+                    let val = element.slice(element.indexOf('=') + 1)
+                    obj[key] = val
+                });
+
+                //required data
+                if (!('secret' in obj)) {
+                    throw "no secret"
+                }
+
+                //optional
+                if (!('issuer' in obj)) {
+                    obj['issuer'] = 'NO ISSUER'
+                } else {
+                    obj['issuer'] = obj['issuer'].replaceAll('%3A', ':')
+                    obj['issuer'] = obj['issuer'].replaceAll('%20', ' ')
+                    obj['issuer'] = obj['issuer'].replaceAll('%40', '@')
+                }
+                if (!('period' in obj)) {
+                    obj['period'] = String(30)
+                }
+                if (!('algorithm' in obj)) {
+                    obj['algorithm'] = 'SHA-1'
+                }
+                if (!('digits' in obj)) {
+                    obj['digits'] = String(6)
+                }
+
+                //Fix different Algo names
+                if (obj['algorithm'] == "sha512" || obj['algorithm'] == "SHA512" || obj['algorithm'] == "sha-512")
+                    obj['algorithm'] = "SHA-512"
+                if (obj['algorithm'] == "sha256" || obj['algorithm'] == "SHA256" || obj['algorithm'] == "sha-256")
+                    obj['algorithm'] = "SHA-256"
+                if (obj['algorithm'] == "sha1" || obj['algorithm'] == "SHA1" || obj['algorithm'] == "sha-1")
+                    obj['algorithm'] = "SHA-1"
+
+
+                return obj
+            }else{
+                throw "link parsing error"
             }
-
-            params.forEach(element => {
-                let key = element.slice(0, element.indexOf('='))
-                let val = element.slice(element.indexOf('=') + 1)
-                console.log(key, " is ", val)
-                obj[key] = val
-            });
-
-            //required data
-            if (!('secret' in obj)) {
-                return null
-            }
-
-            //optional
-            if (!('issuer' in obj)) {
-                obj['issuer'] = 'NO ISSUER'
-            } else {
-                obj['issuer'] = obj['issuer'].replaceAll('%3A', ':')
-                obj['issuer'] = obj['issuer'].replaceAll('%20', ' ')
-                obj['issuer'] = obj['issuer'].replaceAll('%40', '@')
-            }
-            if (!('period' in obj)) {
-                obj['period'] = String(30)
-            }
-            if (!('algorithm' in obj)) {
-                obj['algorithm'] = 'SHA-1'
-            }
-            if (!('digits' in obj)) {
-                obj['digits'] = String(6)
-            }
-
-            //Fix different Algo names
-            if (obj['algorithm'] == "sha512" || obj['algorithm'] == "SHA512")
-                obj['algorithm'] = "SHA-512"
-            if (obj['algorithm'] == "sha256" || obj['algorithm'] == "SHA256")
-                obj['algorithm'] = "SHA-256"
-            if (obj['algorithm'] == "sha1" || obj['algorithm'] == "SHA1")
-                obj['algorithm'] = "SHA-1"
-
-
-            return obj
+        } catch (e) {
+            //no idea how a toast should be written
+            //this.showToast({text:"asd"})
         }
         return null
     },

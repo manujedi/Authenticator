@@ -9,7 +9,7 @@ const {messageBuilder} = getApp()._options.globalData
 let scrollList
 let otpList = []
 let dummylist = [
-    {account: "Add an Account", issuer: "A \"otpauth://totp/\" link"},
+    {account: "Add an Account", issuer: "A \"otpauth://\" link"},
     {account: "in the Zepp App", issuer: "Profile -> My devices -> App settings"},
     {account: "and click HERE"},
 ]
@@ -18,7 +18,6 @@ Page({
 
     onMessage() {
         messageBuilder.on('call', ({payload: buf}) => {
-            console.log(buf)
             this.getAccounts()
         })
     },
@@ -26,13 +25,7 @@ Page({
     getAccounts() {
 
         console.log("Loading account list from storage")
-        let storList = JSON.parse(localStorage.getItem('otpList', '[]'))
-        while (otpList.length > 0) {
-            otpList.pop();
-        }
-        for (let i = 0; i < storList.length; i++) {
-            otpList.push(storList[i])
-        }
+        otpList = JSON.parse(localStorage.getItem('otpList', '[]'))
 
         console.log("Requesting account list from device")
         messageBuilder.request({
@@ -54,23 +47,9 @@ Page({
     },
 
     updateList() {
-        for (let i = 0; i < otpList.length; i++) {
-            console.log(otpList[i].account)
-        }
         scrollList.setProperty(hmUI.prop.UPDATE_DATA, {
-
-            data_type_config: [
-                {
-                    start: 0,
-                    end: otpList.length - 1,
-                    type_id: 0
-                }
-            ],
-            //Configuration the length of information
-            data_type_config_count: 1,
             data_array: otpList,
             data_count: otpList.length,
-            on_page: 0,
         })
 
     },
@@ -89,7 +68,6 @@ Page({
             otpList = JSON.parse(JSON.stringify(dummylist))
 
         function showCode(item, index, data_key) {
-            console.log(index, data_key, typeof index, typeof data_key)
             push({
                 url: 'page/gtr/home/code.page',
                 params: JSON.stringify(otpList[index]),
@@ -97,33 +75,20 @@ Page({
         }
 
         scrollList = hmUI.createWidget(hmUI.widget.SCROLL_LIST, {
-            x: 0,
+            x: 20,
             y: 0,
             h: DEVICE_HEIGHT,
-            w: DEVICE_WIDTH,
+            w: DEVICE_WIDTH-40,
             item_space: 20,
             snap_to_center: true,
-            item_enable_horizon_drag: false,
-            item_drag_max_distance: 0,
             item_config: [
                 {
                     type_id: 0,
                     item_bg_color: 0x303030,
                     item_bg_radius: 40,
-                    /*
-                    {
-                        account
-                        secret
-                        issuer
-                        period
-                        algorithm
-                        digits
-                        uri
-                    }
-                    */
                     text_view: [
-                        {x: 0, y: 0, w: DEVICE_WIDTH, h: 60, key: 'account', color: 0xffffff, text_size: px(48)},
-                        {x: 0, y: 60, w: DEVICE_WIDTH, h: 40, key: 'issuer', color: 0xffffff, text_size: px(24)},
+                        {x: 20, y: 0, w: DEVICE_WIDTH-80, h: 60, key: 'account', color: 0xffffff, text_size: px(48)},
+                        {x: 20, y: 60, w: DEVICE_WIDTH-80, h: 40, key: 'issuer', color: 0xffffff, text_size: px(24)},
                     ],
                     text_view_count: 2,
                     image_view_count: 0,
@@ -137,16 +102,6 @@ Page({
             item_click_func: (item, index, data_key) => {
                 showCode(item, index, data_key)
             },
-            item_focus_change_func: (list, index, focus) => {
-            },
-            data_type_config: [
-                {
-                    start: 0,
-                    end: otpList.length - 1,
-                    type_id: 0
-                }
-            ],
-            data_type_config_count: 1,
         })
 
     },
