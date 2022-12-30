@@ -17,7 +17,7 @@ Big thanks to [ZoLArk173](https://github.com/ZoLArk173) and [Alpaca131](https://
 
 # Screenshots
 ## App settings
-![App Settings](screenshots/phone_settings.jpg)
+![App Settings](assets/phone_settings.jpg)
 ## Watch App on GTR4
 ![WatchApp](assets/gtr/overview.png)
 ![WatchApp](assets/gtr/TOTP1.png)
