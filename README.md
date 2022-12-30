@@ -19,12 +19,15 @@ Big thanks to [ZoLArk173](https://github.com/ZoLArk173) and [Alpaca131](https://
 ## App settings
 ![App Settings](screenshots/phone_settings.jpg)
 ## Watch App on GTR4
-![WatchApp](screenshots/GTR4_start.jpg)
-![WatchApp](screenshots/GTR4_accounts.jpg)
-![WatchApp](screenshots/GTR4_code.jpg)
-![WatchApp](screenshots/GTR4_code2.jpg)
+![WatchApp](assets/gtr/overview.png)
+![WatchApp](assets/gtr/TOTP1.png)
+![WatchApp](assets/gtr/TOTP2.png)
+![WatchApp](assets/gtr/TOTP3.png)
 ## Watch App on GTS4
-![WatchApp](screenshots/GTS4_screenshot.jpg)
+![WatchApp](assets/gts/orig/overview.png)
+![WatchApp](assets/gts/orig/TOTP1.png)
+![WatchApp](assets/gts/orig/TOTP2.png)
+![WatchApp](assets/gts/orig/TOTP3.png)
 
 # Old Readme
 # Authenticator
