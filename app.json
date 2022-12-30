@@ -1,8 +1,8 @@
 {
   "configVersion": "v2",
   "app": {
-    "appId": 27508,
-    "appName": "TOTP",
+    "appId": 1014922,
+    "appName": "TOTP Authenticator",
     "appType": "app",
     "version": {
       "code": 1,
@@ -10,7 +10,7 @@
     },
     "icon": "icon.png",
     "vender": "manujedi",
-    "description": "A TOTP authenticator which shows the code on the watch. Uses the uri format otpauth://..."
+    "description": "A TOTP authenticator which shows the code on the watch. Uses the uri format otpauth://... source code: https://github.com/manujedi/Authenticator. You can report bugs to https://github.com/manujedi/Authenticator"
   },
   "permissions": [
     "data:os.device.info",

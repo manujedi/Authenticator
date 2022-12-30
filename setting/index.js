@@ -42,6 +42,7 @@ AppSettingsPage({
                     obj[key] = val
                 });
 
+
                 //required data
                 if (!('secret' in obj)) {
                     throw "no secret"
