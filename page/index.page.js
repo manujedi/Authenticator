@@ -69,7 +69,7 @@ Page({
 
         function showCode(item, index, data_key) {
             push({
-                url: 'page/gtr/home/code.page',
+                url: 'page/code.page',
                 params: JSON.stringify(otpList[index]),
             },)
         }

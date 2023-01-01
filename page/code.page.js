@@ -1,6 +1,6 @@
 import * as hmUI from '@zos/ui'
 import {getDeviceInfo} from '@zos/device'
-import auth from '../../../utils/auth.js'
+import auth from '../utils/auth.js'
 import {px} from '@zos/utils'
 import {back} from '@zos/router'
 

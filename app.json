@@ -29,8 +29,8 @@
       "module": {
         "page": {
           "pages": [
-            "page/gtr/home/index.page",
-            "page/gtr/home/code.page"
+            "page/index.page",
+            "page/code.page"
           ],
           "window": {
             "navigationBarBackgroundColor": "#ffffff",
@@ -63,8 +63,8 @@
       "module": {
         "page": {
           "pages": [
-            "page/gtr/home/index.page",
-            "page/gtr/home/code.page"
+            "page/index.page",
+            "page/code.page"
           ],
           "window": {
             "navigationBarBackgroundColor": "#ffffff",
@@ -97,8 +97,8 @@
       "module": {
         "page": {
           "pages": [
-            "page/gtr/home/index.page",
-            "page/gtr/home/code.page"
+            "page/index.page",
+            "page/code.page"
           ],
           "window": {
             "navigationBarBackgroundColor": "#ffffff",
@@ -131,8 +131,8 @@
       "module": {
         "page": {
           "pages": [
-            "page/gtr/home/index.page",
-            "page/gtr/home/code.page"
+            "page/index.page",
+            "page/code.page"
           ],
           "window": {
             "navigationBarBackgroundColor": "#ffffff",
@@ -165,8 +165,8 @@
       "module": {
         "page": {
           "pages": [
-            "page/gtr/home/index.page",
-            "page/gtr/home/code.page"
+            "page/index.page",
+            "page/code.page"
           ],
           "window": {
             "navigationBarBackgroundColor": "#ffffff",
