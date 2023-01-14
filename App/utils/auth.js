@@ -52,23 +52,40 @@ export default function (account, secret, issuer, period, sha) {
 
     this.getOtp = function () {
 
-        var key = base32tohex(secret);
-        var epoch = Math.round(new Date().getTime() / 1000.0);
-        var time = leftpad(dec2hex(Math.floor(epoch / period)), 16, '0');
+        let key = base32tohex(secret);
+        let epoch = Math.round(new Date().getTime() / 1000.0);
+        let iteration = Math.floor(epoch / period)
+        let time_curr = leftpad(dec2hex(iteration), 16, '0');
+        let time_next = leftpad(dec2hex(iteration+1), 16, '0');
 
         // // updated for jsSHA v2.0.0 - http://caligatio.github.io/jsSHA/
-        var shaObj = new jsSHA(sha, "HEX");
-        shaObj.setHMACKey(key, "HEX");
-        shaObj.update(time);
-        var hmac = shaObj.getHMAC("HEX");
+        let shaObj_cur = new jsSHA(sha, "HEX");
+        let shaObj_next = new jsSHA(sha, "HEX");
+        shaObj_cur.setHMACKey(key, "HEX");
+        shaObj_next.setHMACKey(key, "HEX");
+        shaObj_cur.update(time_curr);
+        shaObj_next.update(time_next);
+
+        let offset = 0
+
+        //current otp value
+        let hmac = shaObj_cur.getHMAC("HEX");
         if (hmac == 'KEY MUST BE IN BYTE INCREMENTS') {
         } else {
-            var offset = hex2dec(hmac.substring(hmac.length - 1));
+            offset = hex2dec(hmac.substring(hmac.length - 1));
         }
+        let otp_curr = (hex2dec(hmac.substring(offset * 2, offset * 2 + 8)) & hex2dec('7fffffff')) + '';
 
-        var otp = (hex2dec(hmac.substring(offset * 2, offset * 2 + 8)) & hex2dec('7fffffff')) + '';
-        time = 1 - (epoch / period) + Math.floor(epoch / period)
+        //next otp value
+        hmac = shaObj_next.getHMAC("HEX");
+        if (hmac == 'KEY MUST BE IN BYTE INCREMENTS') {
+        } else {
+            offset = hex2dec(hmac.substring(hmac.length - 1));
+        }
+        let otp_next = (hex2dec(hmac.substring(offset * 2, offset * 2 + 8)) & hex2dec('7fffffff')) + '';
+
+        let time = 1 - (epoch / period) + Math.floor(epoch / period)
         time = Math.round(time * period)
-        return {otp: String(otp), time: time};
+        return {otp_curr: String(otp_curr),otp_next: String(otp_next), time: time};
     }
 }
