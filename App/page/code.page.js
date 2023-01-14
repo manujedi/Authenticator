@@ -88,6 +88,9 @@ Page({
         textWidgetTime.addEventListener(hmUI.event.CLICK_DOWN, function (info) {
             back()
         })
+        textWidgetOTPNext.addEventListener(hmUI.event.CLICK_DOWN, function (info) {
+            back()
+        })
 
         setInterval(() => {
             if (timeRemaining < 0) { //be on the save side, calc it two times
