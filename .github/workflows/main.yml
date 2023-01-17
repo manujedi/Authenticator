@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Build the App
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - working-directory: App
       - run: npm i @zeppos/zeus-cli -g
-      - run: cd App
       - run: zeus build
