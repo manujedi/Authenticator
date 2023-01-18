@@ -25,3 +25,7 @@ jobs:
       - name: build the APp
         working-directory: ./App
         run: echo | zeus build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: binary
+          path: ./App/dist/*.zab
