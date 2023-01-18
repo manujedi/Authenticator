@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Build the app
 
 on:
   push:
@@ -18,8 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the App
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - working-directory: ./App
       - run: npm i @zeppos/zeus-cli -g
       - run: zeus build
