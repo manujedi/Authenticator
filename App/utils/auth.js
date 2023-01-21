@@ -50,6 +50,13 @@ export default function (account, secret, issuer, period, sha) {
         return str;
     }
 
+    this.getRemininingTime = function (){
+        let epoch = Math.round(new Date().getTime() / 1000.0);
+        let time = 1 - (epoch / period) + Math.floor(epoch / period)
+        time = Math.round(time * period)
+        return time;
+    }
+
     this.getOtp = function () {
 
         let key = base32tohex(secret);

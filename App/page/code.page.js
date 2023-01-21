@@ -19,6 +19,8 @@ Page({
         acc = JSON.parse(params)
         //console.log(acc.account, acc.secret,acc.issuer, acc.period, acc.algorithm, acc.digits, acc.uri)
 
+        var authObj = new auth(acc.account, acc.secret, acc.issuer, parseInt(acc.period), acc.algorithm)
+
         if (!('secret' in acc)) {
             back()
             return;
@@ -95,7 +97,6 @@ Page({
         setInterval(() => {
             if (timeRemaining < 0) { //be on the save side, calc it two times
                 console.log("calc. TOTP")
-                var authObj = new auth(acc.account, acc.secret, acc.issuer, parseInt(acc.period), acc.algorithm)
                 let {otp_curr, otp_next, time} = authObj.getOtp()
                 console.log(otp_curr,otp_next)
                 let otp = otp_curr.substring(otp_curr.length - parseInt(acc.digits));
@@ -117,13 +118,17 @@ Page({
                 textWidgetTime.setProperty(hmUI.prop.text, {color: 0x00FF00, text: String(timeRemaining) + "s",})
 
             let txtsize = 30 - timeRemaining < 0 ? 0 : 48-timeRemaining
-            textWidgetOTPNext.setProperty(hmUI.prop.text, {
-                text_size: px(txtsize),
-            })
+            textWidgetOTPNext.setProperty(hmUI.prop.text, {text_size: px(txtsize),})
             timeRemaining -= 1
             console.log("refreshed TOTP")
+
+            //refresh time, this can happen if the screen goes dark
+            let realTime = authObj.getRemininingTime();
+            timeRemaining = timeRemaining > realTime ? realTime : timeRemaining;
+
         }, 1000)
     },
+
 
     onReady() {
         console.log('ready')
