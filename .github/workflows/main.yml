@@ -24,4 +24,8 @@ jobs:
         run: npm i @zeppos/zeus-cli -g
       - name: build the APp
         working-directory: ./App
-        run: zeus build
+        run: echo | zeus build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: TOTP_Authenticator
+          path: ./App/dist/*.zab
