@@ -10,11 +10,16 @@ let acc
 let textWidgetOTP
 let textWidgetTime
 let textWidgetOTPNext
-let timeRemaining = -1
+let validUntil = -1
+let otp = ""
+let otp_n = ""
+
 
 Page({
 
     onInit(params) {
+
+        hmUI.setStatusBarVisible(false)
 
         acc = JSON.parse(params)
         //console.log(acc.account, acc.secret,acc.issuer, acc.period, acc.algorithm, acc.digits, acc.uri)
@@ -27,11 +32,11 @@ Page({
         }
 
         let textWidgetCode = hmUI.createWidget(hmUI.widget.TEXT, {
-            text: 'Code',
+            text: String(acc.account),
             color: 0xffffff,
             text_size: px(48),
             x: px(0),
-            y: px(-70),
+            y: px(-90),
             w: px(DEVICE_WIDTH),
             h: px(DEVICE_HEIGHT),
             align_h: hmUI.align.CENTER_H,
@@ -44,7 +49,7 @@ Page({
             color: 0xffffff,
             text_size: px(64),
             x: px(0),
-            y: px(0),
+            y: px(-20),
             w: px(DEVICE_WIDTH),
             h: px(DEVICE_HEIGHT),
             align_h: hmUI.align.CENTER_H,
@@ -57,7 +62,7 @@ Page({
             color: 0xffffff,
             text_size: px(48),
             x: px(0),
-            y: px(70),
+            y: px(50),
             w: px(DEVICE_WIDTH),
             h: px(DEVICE_HEIGHT),
             align_h: hmUI.align.CENTER_H,
@@ -94,14 +99,35 @@ Page({
             back()
         })
 
+        validUntil = Math.round(new Date().getTime()/1000)
+
         setInterval(() => {
-            if (timeRemaining < 0) { //be on the save side, calc it two times
+            let currTime = Math.round(new Date().getTime()/1000)
+            let timeRemaining = validUntil - currTime
+            if (timeRemaining <= 0 ) { //be on the save side, calc it two times
                 console.log("calc. TOTP")
-                let {otp_curr, otp_next, time} = authObj.getOtp()
-                console.log(otp_curr,otp_next)
-                let otp = otp_curr.substring(otp_curr.length - parseInt(acc.digits));
-                let otp_n = otp_next.substring(otp_next.length - parseInt(acc.digits));
-                timeRemaining = time
+
+                if(otp_n === ""){
+                    let otp_curr = authObj.getOtp(0)
+                    let otp_next = authObj.getOtp(1)
+                    let time = authObj.getRemininingTime()
+
+                    otp = authObj.addSpaces(otp_curr.substring(otp_curr.length - parseInt(acc.digits)));
+                    otp_n = authObj.addSpaces(otp_next.substring(otp_next.length - parseInt(acc.digits)));
+
+                    validUntil = currTime + time
+                    timeRemaining = validUntil - currTime
+                }else{
+                    otp = otp_n
+                    let otp_next = authObj.getOtp(1)
+                    let time = authObj.getRemininingTime()
+
+                    otp_n = authObj.addSpaces(otp_next.substring(otp_next.length - parseInt(acc.digits)));
+
+                    validUntil = currTime + time
+                    timeRemaining = validUntil - currTime
+                }
+
                 textWidgetOTP.setProperty(hmUI.prop.text, {
                     text: otp,
                 })
@@ -118,13 +144,7 @@ Page({
                 textWidgetTime.setProperty(hmUI.prop.text, {color: 0x00FF00, text: String(timeRemaining) + "s",})
 
             let txtsize = 30 - timeRemaining < 0 ? 0 : 48-timeRemaining
-            textWidgetOTPNext.setProperty(hmUI.prop.text, {text_size: px(txtsize),})
-            timeRemaining -= 1
-            console.log("refreshed TOTP")
-
-            //refresh time, this can happen if the screen goes dark
-            let realTime = authObj.getRemininingTime();
-            timeRemaining = timeRemaining > realTime ? realTime : timeRemaining;
+            textWidgetOTPNext.setProperty(hmUI.prop.text, {text_size: px(txtsize),y : px((DEVICE_HEIGHT/2) + 110 - (txtsize*5))})
 
         }, 1000)
     },

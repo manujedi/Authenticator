@@ -58,7 +58,7 @@ Page({
     },
 
     build() {
-
+        hmUI.setStatusBarVisible(false)
 
         this.onMessage()
         this.getAccounts()
