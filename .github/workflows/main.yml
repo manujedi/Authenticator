@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install node
         run: npm i @zeppos/zeus-cli -g
-      - name: build the APp
+      - name: build the app
         working-directory: ./App
         run: echo | zeus build
       - uses: actions/upload-artifact@v3
