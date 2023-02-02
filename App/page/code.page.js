@@ -3,6 +3,7 @@ import {getDeviceInfo} from '@zos/device'
 import auth from '../utils/auth.js'
 import {px} from '@zos/utils'
 import {back} from '@zos/router'
+import { setPageBrightTime } from '@zos/display'
 
 const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = getDeviceInfo()
 
@@ -17,9 +18,12 @@ let otp_n = ""
 
 Page({
 
+
     onInit(params) {
 
         hmUI.setStatusBarVisible(false)
+        setPageBrightTime({brightTime: -1,}) //changed back on page destroy
+
 
         acc = JSON.parse(params)
         //console.log(acc.account, acc.secret,acc.issuer, acc.period, acc.algorithm, acc.digits, acc.uri)
