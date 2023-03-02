@@ -3,6 +3,8 @@
 Big thanks to [ZoLArk173](https://github.com/ZoLArk173) and [Alpaca131](https://github.com/Alpaca131) for the idea and original code.
 The application is now available in the Zepp Store
 
+## Note to anyone wants to use it with gadgetbridge: The gadgetbridge branch contains a version with a hardcoded otp list so you can build and flash it with gadgetbridge
+
 - added advanced options:
   - `otpauth://totp/{ACCOUNT_NAME}?secret={SECRET}&issuer={ISSUER}&algorithm={ALGO}&digits={DIGITS}&period={PERIOD}`
     - `{ALGO}`: SHA1 (default if not specified), SHA256, SHA512
