@@ -1,71 +1,24 @@
 import * as hmUI from '@zos/ui'
 import {push} from '@zos/router'
 import {getDeviceInfo} from '@zos/device'
-import {localStorage} from '@zos/storage'
 
 const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = getDeviceInfo()
 
 const {messageBuilder} = getApp()._options.globalData
 let scrollList
-let otpList = []
-let dummylist = [
-    {account: "Add an Account", issuer: "A \"otpauth://\" link"},
-    {account: "in the Zepp App", issuer: "Profile -> My devices -> App settings"},
-    {account: "and click HERE"},
+
+let otpList = [
+    {account: "Plex", issuer:"plex.tv/web", secret:"JBSWY3DPEHPK3PXP",algorithm:"SHA-1", digits:6 , period:30},
 ]
 
+
 Page({
-
-    onMessage() {
-        messageBuilder.on('call', ({payload: buf}) => {
-            this.getAccounts()
-        })
-    },
-
-    getAccounts() {
-
-        console.log("Loading account list from storage")
-        otpList = JSON.parse(localStorage.getItem('otpList', '[]'))
-
-        console.log("Requesting account list from device")
-        messageBuilder.request({
-            method: 'GET_ACCOUNT_LIST'
-        }).then(({result}) => {
-            let tmpList = JSON.parse(result)
-
-            if (tmpList.length > 0) {
-                otpList = JSON.parse(JSON.stringify(tmpList))
-            } else {
-                otpList = JSON.parse(JSON.stringify(dummylist))
-            }
-            console.log("done recieving, otp Len: ", otpList.length)
-            this.updateList()
-
-        })
-            .catch((res) => {
-            })
-    },
-
-    updateList() {
-        scrollList.setProperty(hmUI.prop.UPDATE_DATA, {
-            data_array: otpList,
-            data_count: otpList.length,
-        })
-
-    },
 
     onInit() {
     },
 
     build() {
         hmUI.setStatusBarVisible(false)
-
-        this.onMessage()
-        this.getAccounts()
-
-        if (otpList.length == 0)
-            //hacky deepcopy
-            otpList = JSON.parse(JSON.stringify(dummylist))
 
         function showCode(item, index, data_key) {
             push({
@@ -119,9 +72,6 @@ Page({
 
 
     onDestroy() {
-        console.log("writing data")
-        localStorage.setItem('otpList', JSON.stringify(otpList))
-        console.log('destroy')
     },
 
 })
