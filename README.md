@@ -3,7 +3,7 @@
 Big thanks to [ZoLArk173](https://github.com/ZoLArk173) and [Alpaca131](https://github.com/Alpaca131) for the idea and original code.
 The application is now available in the Zepp Store
 
-## Note to anyone wants to use it with gadgetbridge: The gadgetbridge branch contains a version with a hardcoded otp list so you can build and flash it with gadgetbridge
+## Note to anyone wants to use it with gadgetbridge: The gadgetbridge branch contains a version with a [hardcoded otp list](https://github.com/manujedi/Authenticator/blob/170ac94ca59d5c63949d62e1d9e728dc5f4a3905/App/page/index.page.js#L11) so you can build it yourself and flash with gadgetbridge
 
 - added advanced options:
   - `otpauth://totp/{ACCOUNT_NAME}?secret={SECRET}&issuer={ISSUER}&algorithm={ALGO}&digits={DIGITS}&period={PERIOD}`
